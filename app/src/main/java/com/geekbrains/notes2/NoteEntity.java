@@ -19,7 +19,7 @@ public class NoteEntity implements Serializable {
     public static String generateNewId(){
         return UUID.randomUUID().toString();
     }
-
+    // Получаем текущее время в милисекундах
     public static long getCurrentDate(){
         return Calendar.getInstance().getTimeInMillis();
     }

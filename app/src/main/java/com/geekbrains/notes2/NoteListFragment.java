@@ -29,7 +29,7 @@ public class NoteListFragment extends Fragment {
         return view;
     }
 
-    // Здесь делаю навешивание логики (обрабтчик на createButton)
+    // Здесь делаю навешивание логики (обрабтчик на createButton) - обработчик createButton
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         renderList(noteList);
@@ -45,19 +45,37 @@ public class NoteListFragment extends Fragment {
 
     }
 
-    public void addNote(NoteEntity note){
-        noteList.add(note);
+    public void addNote(NoteEntity newNote){
+        NoteEntity sameNote = findNoteWithId(newNote.id);
+        if (sameNote != null) {
+            noteList.remove(sameNote);
+        }
+        noteList.add(newNote);
         renderList(noteList);
     }
 
+    @Nullable
+    private NoteEntity findNoteWithId(String id){
+        for (NoteEntity note : noteList){
+            if (note.id.equals(id)){
+                return note;
+            }
+        }
+        return null;
+    }
+
     private void renderList(List<NoteEntity> notes) {
-        listLinearLayout.removeAllViews();
+        listLinearLayout.removeAllViews(); //чтобы заметки добавлялись всё время новые
         for (NoteEntity note : notes) {
             Button button = new Button(getContext());
             button.setText(note.subject);
+            button.setOnClickListener(v ->{
+                getContract().editNote(note);
+            });
             listLinearLayout.addView(button);
         }
     }
+
 
     // Завили этот Contract чтобы актвити его заимплементила
     private Contract getContract(){
@@ -65,5 +83,6 @@ public class NoteListFragment extends Fragment {
     }
     interface Contract{
         void onCreateNote();
+        void editNote(NoteEntity note);
     }
 }

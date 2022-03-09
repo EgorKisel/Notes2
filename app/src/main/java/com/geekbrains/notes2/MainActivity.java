@@ -1,5 +1,6 @@
 package com.geekbrains.notes2;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -21,17 +22,27 @@ public class MainActivity extends AppCompatActivity implements NoteListFragment.
                 .add(R.id.fragment_container, new NoteListFragment(), NOTES_LIST_FRAGMENT_TAG)
                 .commit();
     }
-    private void showEditNote(){
+
+    private void showEditNote (){
+        showEditNote(null);
+    }
+
+    private void showEditNote(@Nullable NoteEntity note){
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.fragment_container, new EditNoteFragment())
+                .replace(R.id.fragment_container, EditNoteFragment.newInstance(note))
                 .commit();
     }
 
     @Override
     public void onCreateNote() {
         showEditNote();
+    }
+
+    @Override
+    public void editNote(NoteEntity note) {
+        showEditNote(note);
     }
 
     @Override
