@@ -1,23 +1,26 @@
 package com.geekbrains.notes2;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.UUID;
 
 public class NoteEntity implements Serializable {
     public final String id;
-    public final String title;
+    public final String subject;
     public final long date;
     public final String text;
-    public final String phone;
 
-    public NoteEntity (String id, String title, long date, String text, String phone){
+    public NoteEntity (String id, String subject, long date, String text){
         this.id = id;
-        this.title = title;
+        this.subject = subject;
         this.date = date;
         this.text = text;
-        this.phone = phone;
     }
     public static String generateNewId(){
         return UUID.randomUUID().toString();
+    }
+
+    public static long getCurrentDate(){
+        return Calendar.getInstance().getTimeInMillis();
     }
 }

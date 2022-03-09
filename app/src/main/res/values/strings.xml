@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Notes2</string>
     <string name="create_note_button">Создать новую заметку</string>
+    <string name="note_subject_hint">Заголовок</string>
+    <string name="text_hint">Текст заметки</string>
+    <string name="save_button">Сохранить</string>
 </resources>
